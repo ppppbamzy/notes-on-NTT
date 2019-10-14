@@ -140,10 +140,12 @@ Therefore we have
 \begin{align*}
 f(i) & = \frac{1}{n}\sum_{k,j}{f(j)\alpha^{k(j-i)}} \\
      & = \frac{1}{n}\sum_{k,j}{f(j)\alpha^{kj-ki}} \\
-     & = \frac{1}{n}\sum_{k,j}{f(j)\alpha^{kj}\alpha^{-ik}} \\
-     & = \frac{1}{n}\sum_{k}{F(k)\alpha^{-ik}},
+     & = \frac{1}{n}\sum_{k,j}{f(j)\alpha^{kj}\alpha^{-ik}}.
 \end{align*}
-where $F(k) \overset{def}{=} \sum_{j}{f(j)\alpha^{kj}}$.
+Let $F(k) \overset{def}{=} \sum_{j}{f(j)\alpha^{kj}}$, then
+\[
+f(i) = \frac{1}{n}\sum_k{F(k)\alpha^{-ik}}.
+\]
 \end{frame}
 
 
