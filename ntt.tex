@@ -112,9 +112,9 @@
 % -------------------
 % Title Page
 % -------------------
-\title{\textcolor{white}{How to Get Rid of Ghosts}}
-\subtitle{\textcolor{white}{Mathematics Conference for the Mysterious and Magical}}  
-\author{Ann B. Dextrous}
+\title{\textcolor{white}{Notes on NTT}}
+\subtitle{\textcolor{white}{}}  
+\author{A.S.}
 \date{April 1, 2020} 
 
 
@@ -146,6 +146,16 @@ Let $F(k) \overset{def}{=} \sum_{j}{f(j)\alpha^{kj}}$, then
 \[
 f(i) = \frac{1}{n}\sum_k{F(k)\alpha^{-ik}}.
 \]
+\end{frame}
+
+\begin{frame}
+We can compute $F(k)$ recursively ---
+\begin{align*}
+F(k) &= \sum_{j=0}^{n-1}{f(j)\alpha^{kj}} \\
+     &= \sum_{l=0}^{n/2-1}{f(2l)\alpha^{k \cdot 2l}} + \alpha^{k}\sum_{l=0}^{n/2-1}{f(2l+1)\alpha^{k \cdot 2l}} \\
+     &= G(k') + \alpha^{k}H(k'),
+\end{align*}
+where $G$ and $H$ are the NTT's of functions relevant to $f$, and $k' \overset{def}{=} k \text{ mod } n/2$, and will be just denoted $k$ from now on.
 \end{frame}
 
 
