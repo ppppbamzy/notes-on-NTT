@@ -151,9 +151,20 @@ We can compute $F(k)$ recursively ---
 \begin{align*}
 F^{(0)}(k) &= \sum_{j=0}^{n-1}{f(j) \cdot \alpha^{kj}} \\
            &= \sum_{l=0}^{\frac{n}{2}-1}{f(2l) \cdot \alpha^{k \cdot 2l}} + \alpha^{k} \cdot \sum_{l=0}^{\frac{n}{2}-1}{f(2l+1) \cdot \alpha^{k \cdot 2l}} \\
-           &= F^{(1)}_0(k \bmod \frac{n}{2}) + \alpha^{k} \cdot F^{(1)}_1(k \bmod \frac{n}{2})
+           &= F^{(1)}_0(k \bmod \frac{n}{2}) + \alpha^{k} \cdot F^{(1)}_1(k \bmod \frac{n}{2}),
 \end{align*}
 where $F^{(1)}_0$ and $F^{(1)}_1$ are the NTT's of with halved parameter $n$.
+
+\end{frame}
+
+\begin{frame}
+We can compute $F(k)$ recursively ---
+\begin{align*}
+F^{(0)}(k) &= \sum_{j=0}^{n-1}{f(j) \cdot \alpha^{kj}} \\
+&= \sum_{l=0}^{\frac{n}{2}-1}{f(2l) \cdot \alpha^{k \cdot 2l}} + \alpha^{k} \cdot \sum_{l=0}^{\frac{n}{2}-1}{f(2l+1) \cdot \alpha^{k \cdot 2l}} \\
+&= F^{(1)}_0(k \bmod \frac{n}{2}) + \alpha^{k} \cdot F^{(1)}_1(k \bmod \frac{n}{2}).
+\end{align*}
+Notice the computation of $F^{(1)}_0$ uses $f(j)$'s for \textbf{even} $j$'s, and that of $F^{(1)}_1$ uses $f(j)$'s for \textbf{odd} $j$'s.
 
 \end{frame}
 
@@ -169,7 +180,48 @@ where $k' = k \bmod \frac{n}{2}$.
 \end{frame}
 
 \begin{frame}
-Hence the butterfly structure --- \\
+We can compute $F(k)$ recursively ---
+\begin{align*}
+F^{(0)}(k) &= F^{(1)}_0(k') + \alpha^{k} \cdot F^{(1)}_1(k') \\
+&= F^{(2)}_0(k' \bmod \frac{n}{4}) + \alpha^{k'} \cdot F^{(2)}_1(k' \bmod \frac{n}{4})  \\
+&\phantom{=} + \alpha^{k} \cdot F^{(2)}_2(k' \bmod \frac{n}{4}) + \alpha^{k+k'} \cdot F^{(2)}_3(k' \bmod \frac{n}{4}) \\
+&= \cdots.
+\end{align*}
+The computation of $F^{(2)}_0, F^{(2)}_1$ uses $f(j)$'s for \textcolor{red}{even} $j$'s, and that of $F^{(2)}_2, F^{(2)}_3$ uses $f(j)$'s for \textcolor{red}{odd} $j$'s.
+\end{frame}
+
+\begin{frame}
+We can compute $F(k)$ recursively ---
+\begin{align*}
+F^{(0)}(k) &= F^{(1)}_0(k') + \alpha^{k} \cdot F^{(1)}_1(k') \\
+&= F^{(2)}_0(k' \bmod \frac{n}{4}) + \alpha^{k'} \cdot F^{(2)}_1(k' \bmod \frac{n}{4})  \\
+&\phantom{=} + \alpha^{k} \cdot F^{(2)}_2(k' \bmod \frac{n}{4}) + \alpha^{k+k'} \cdot F^{(2)}_3(k' \bmod \frac{n}{4}) \\
+&= \cdots.
+\end{align*}
+The computation of $F^{(2)}_0, F^{(2)}_1$ uses $f(j)$'s for \textcolor{red}{even} $j$'s, and that of $F^{(2)}_2, F^{(2)}_3$ uses $f(j)$'s for \textcolor{red}{odd} $j$'s. The computation of $F^{(2)}_0, F^{(2)}_2$ uses $f(j)$'s for the $j$'s s.t. \textcolor{red}{$(j \bmod 2) \bmod 4 = 0$}, and that of $F^{(2)}_1, F^{(2)}_3$ uses $f(j)$'s for the $j$'s s.t. \textcolor{red}{$(j \bmod 2) \bmod 4 \ne 0$}.
+\end{frame}
+
+\begin{frame}
+We say an index is odder than another if it has $1$ in a lower bits. We place the $j$'s following the setting (which is the origin of bits-flipping):
+
+\phantom{sep} 
+
+% \phantom{The more even --- }the upper.
+{\bf
+The more even --- the upper;
+
+%\phantom{sep}
+
+The odder --- the lower.}
+
+%\phantom{The more even --- }the lower.
+
+\phantom{sep}
+
+Hence the butterfly structure ---
+\end{frame}
+
+\begin{frame}
 \begin{figure}
 \begin{tikzpicture}
 \draw[line width=3] (1,1) -- (11,1);
@@ -223,7 +275,6 @@ Hence the butterfly structure --- \\
 \end{frame}
 
 \begin{frame}
-Hence the butterfly structure --- \\
 \begin{figure}
 \begin{tikzpicture}
 \draw[line width=3] (1,1) -- (11,1);
@@ -319,8 +370,30 @@ Hence the butterfly structure --- \\
 \draw[red, line width=5] (8,3) circle [radius=0.1];
 \draw[red, line width=5] (10,3) circle [radius=0.1];
 \draw[red, line width=5] (11,3) circle [radius=0.1];
+
+\draw (4,1.4) node {\bf \textcolor{red}{+}};
+\draw (4,3.4) node {\bf \textcolor{red}{+}};
+\draw (4,5.4) node {\bf \textcolor{red}{+}};
+\draw (4,7.4) node {\bf \textcolor{red}{+}};
+\draw (7,3.4) node {\bf \textcolor{red}{+}};
+\draw (7,7.4) node {\bf \textcolor{red}{+}};
+\draw (10,3.4) node {\bf \textcolor{red}{+}};
+
+\draw (0.3,8) node {\textcolor{red}{$f(0)$}};
+\draw (0.3,7) node {\textcolor{red}{$f(4)$}};
+\draw (0.3,6) node {\textcolor{red}{$f(2)$}};
+\draw (0.3,5) node {\textcolor{red}{$f(6)$}};
+\draw (0.3,4) node {\textcolor{red}{$f(1)$}};
+\draw (0.3,3) node {\textcolor{red}{$f(5)$}};
+\draw (0.3,2) node {\textcolor{red}{$f(3)$}};
+\draw (0.3,1) node {\textcolor{red}{$f(7)$}};
+\draw (11,3.4) node {\textcolor{red}{$F(5)$}};
 \end{tikzpicture}
 \end{figure}
+\end{frame}
+
+\begin{frame}
+Terms from odd branches will be multiplied by $\alpha^k$ before addition.
 \end{frame}
 
 \end{document}
