@@ -127,29 +127,29 @@
 For simplicity, let $n = q - 1$.\\
 Observe that, when $k \ne 0$, 
 \[
-\sum_{i=0}^{n-1}\alpha^{ik} = 0, \forall \alpha \in \Z_q^*,
+\sum_{i=0}^{n-1}\alpha^{i \cdot k} = 0, \forall \alpha \in \Z_q^*,
 \]
 and when $k = 0$, obviously
 \[
-\sum_{i=0}^{n-1}\alpha^{ik} = \sum_{i=0}^{n-1}\alpha^0 = n, \forall \alpha \in \Z_q^*.
+\sum_{i=0}^{n-1}\alpha^0 = n = -1 \in \mathbb{Z}_q, \forall \alpha \in \Z_q^*.
 \]
 \end{frame}
 
 \begin{frame}
 Therefore we have
 \begin{align*}
-f(i) & = \frac{1}{n}\sum_{k,j}{f(j) \cdot \alpha^{k(j-i)}} \\
-     & = \frac{1}{n}\sum_{k,j}{f(j) \cdot \alpha^{kj-ki}} \\
-     & = \frac{1}{n}\sum_{k,j}{f(j) \cdot \alpha^{kj} \cdot \alpha^{-ik}} \\
-     & = \frac{1}{n}\sum_k{F(k) \cdot \alpha^{-ik}},
+f(i) & = -\sum_{k,j}{f(j) \cdot \alpha^{k \cdot (j-i)}} \\
+     & = -\sum_{k,j}{f(j) \cdot \alpha^{k \cdot j - k \cdot i}} \\
+     & = -\sum_{k,j}{f(j) \cdot \alpha^{k \cdot j} \cdot \alpha^{-i \cdot k}} \\
+     & = -\sum_k{F(k) \cdot \alpha^{-i \cdot k}},
 \end{align*}
-where $F(k) \overset{def}{=} \sum_{j}{f(j) \cdot \alpha^{kj}}$.
+where $F(k) \overset{def}{=} \sum_{j}{f(j) \cdot \alpha^{k \cdot j}}$.
 \end{frame}
 
 \begin{frame}
 We can compute $F(k)$ recursively ---
 \begin{align*}
-F^{(0)}(k) &= \sum_{j=0}^{n-1}{f(j) \cdot \alpha^{kj}} \\
+F^{(0)}(k) &= \sum_{j=0}^{n-1}{f(j) \cdot \alpha^{k \cdot j}} \\
            &= \sum_{l=0}^{\frac{n}{2}-1}{f(2l) \cdot \alpha^{k \cdot 2l}} + \alpha^{k} \cdot \sum_{l=0}^{\frac{n}{2}-1}{f(2l+1) \cdot \alpha^{k \cdot 2l}} \\
            &= F^{(1)}_0(k \bmod \frac{n}{2}) + \alpha^{k} \cdot F^{(1)}_1(k \bmod \frac{n}{2}),
 \end{align*}
@@ -160,11 +160,11 @@ where $F^{(1)}_0$ and $F^{(1)}_1$ are the NTT's of with halved parameter $n$.
 \begin{frame}
 We can compute $F(k)$ recursively ---
 \begin{align*}
-F^{(0)}(k) &= \sum_{j=0}^{n-1}{f(j) \cdot \alpha^{kj}} \\
+F^{(0)}(k) &= \sum_{j=0}^{n-1}{f(j) \cdot \alpha^{k \cdot j}} \\
 &= \sum_{l=0}^{\frac{n}{2}-1}{f(2l) \cdot \alpha^{k \cdot 2l}} + \alpha^{k} \cdot \sum_{l=0}^{\frac{n}{2}-1}{f(2l+1) \cdot \alpha^{k \cdot 2l}} \\
 &= F^{(1)}_0(k \bmod \frac{n}{2}) + \alpha^{k} \cdot F^{(1)}_1(k \bmod \frac{n}{2}).
 \end{align*}
-Notice the computation of $F^{(1)}_0$ uses $f(j)$'s for \textbf{even} $j$'s, and that of $F^{(1)}_1$ uses $f(j)$'s for \textbf{odd} $j$'s.
+Notice the computation of $F^{(1)}_0$ uses $f(j)$'s for \textcolor{red}{even} $j$'s, and that of $F^{(1)}_1$ uses $f(j)$'s for \textcolor{red}{odd} $j$'s.
 
 \end{frame}
 
@@ -393,7 +393,7 @@ Hence the butterfly structure ---
 \end{frame}
 
 \begin{frame}
-Terms from odd branches will be multiplied by $\alpha^k$ before addition.
+Terms from odd branches would be multiplied by $\alpha^k$ before addition.
 \end{frame}
 
 \end{document}
