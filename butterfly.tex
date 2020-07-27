@@ -22,8 +22,8 @@
         \foreach \l in {\start,...,\lrange}
         {
           \pgfmathtruncatemacro{\h}{\l+\step}
-          \draw (\level\l) -- (\nextlevel\h);
-          \draw (\nextlevel\l) -- (\level\h);
+          \draw [very thick] (\level\l) -- (\nextlevel\h);
+          \draw [very thick] (\nextlevel\l) -- (\level\h);
         }
       } 
   }
