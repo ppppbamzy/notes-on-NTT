@@ -23,12 +23,12 @@
         \foreach \l in {\start,...,\lrange}
         {
           \pgfmathtruncatemacro{\h}{\l+\step}
-          \pgfmathtruncatemacro{\cr}{255/(\startrange+1)*\startcount}
+          \pgfmathtruncatemacro{\cr}{255/(\startrange+1)/(\level+0.1)*(\startcount+\level)}
           \pgfmathtruncatemacro{\cg}{255/(\startrange+1)*\startcount}
-          \pgfmathtruncatemacro{\cb}{255/(\startrange+1)*\startcount}
+          \pgfmathtruncatemacro{\cb}{255/(\startrange+1)*(\startrange-\startcount)}
           \definecolor{currentColor}{RGB}{\cr,\cg,\cb};
-          \draw [very thick, currentColor] (\level\l) -- (\nextlevel\h);
-          \draw [very thick, currentColor] (\nextlevel\l) -- (\level\h);
+          \draw [line width=7, currentColor] (\level\l) -- (\nextlevel\h);
+          \draw [line width=7, currentColor] (\nextlevel\l) -- (\level\h);
         }
       } 
   }
