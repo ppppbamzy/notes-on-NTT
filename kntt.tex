@@ -1,0 +1,38 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}
+
+  \pgfmathtruncatemacro\xrange{3}
+  \pgfmathtruncatemacro\yrange{2^\xrange-1}
+  \foreach \x in {0,...,\xrange}
+    \foreach \y in {0,...,\yrange} 
+      \coordinate (\x\y) at (3*\x,1.5*\y) {};
+ 
+  \pgfmathtruncatemacro\levelrange{\xrange-2}
+  \foreach \level in {0,...,\levelrange}
+  {
+    \pgfmathtruncatemacro\nextlevel{\level+1}
+    \pgfmathtruncatemacro\step{2^(\levelrange-\level)}
+    \pgfmathtruncatemacro\startrange{2^\levelrange/\step-1}
+    \foreach \startcount in {0,...,\startrange} 
+      {
+        \pgfmathtruncatemacro{\start}{\startcount*\step*2}
+        \pgfmathtruncatemacro{\startplustwo}{\start+2}
+        \pgfmathtruncatemacro{\lrange}{\start+\step-1}
+        \foreach \l in {\start,\startplustwo,...,\lrange}
+        {
+          \pgfmathtruncatemacro{\h}{\l+\step}
+          \pgfmathtruncatemacro{\cr}{255/(\startrange+1)/(\level+0.1)*(\startcount+\level)}
+          \pgfmathtruncatemacro{\cg}{255/(\startrange+1)*\startcount}
+          \pgfmathtruncatemacro{\cb}{255/(\startrange+1)*(\startrange-\startcount)}
+          \definecolor{currentColor}{RGB}{\cr,\cg,\cb};
+          \draw [currentColor, line width = 7] (\level\l) -- (\nextlevel\h);
+          \draw [currentColor, line width = 7] (\nextlevel\l) -- (\level\h);
+        }
+      } 
+  }
+
+\end{tikzpicture}
+\end{document}  
