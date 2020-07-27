@@ -1,0 +1,32 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}[darkstyle/.style={circle,fill=gray!40,minimum size=0.1}]
+  \pgfmathtruncatemacro\xrange{4}
+  \pgfmathtruncatemacro\yrange{2^\xrange-1}
+  \foreach \x in {0,...,\xrange}
+    \foreach \y in {0,...,\yrange} 
+      \node [darkstyle]  (\x\y) at (3*\x,1.5*\y) {};
+ 
+  \pgfmathtruncatemacro\levelrange{\xrange-1}
+  \foreach \level in {0,...,\levelrange}
+  {
+    \pgfmathtruncatemacro\nextlevel{\level+1}
+    \pgfmathtruncatemacro\step{2^(\levelrange-\level)}
+    \pgfmathtruncatemacro\range{2^\levelrange/\step-1}
+    \foreach \startcount in {0,...,\range} 
+      {
+        \pgfmathtruncatemacro{\start}{\startcount*\step*2}
+        \pgfmathtruncatemacro{\lrange}{\start+\step-1}
+        \foreach \l in {\start,...,\lrange}
+        {
+          \pgfmathtruncatemacro{\h}{\l+\step}
+          \draw (\level\l) -- (\nextlevel\h);
+          \draw (\nextlevel\l) -- (\level\h);
+        }
+      } 
+  }
+
+\end{tikzpicture}
+\end{document}  
