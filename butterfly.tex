@@ -2,12 +2,12 @@
 \usepackage{tikz}
 
 \begin{document}
-\begin{tikzpicture}[darkstyle/.style={circle,fill=gray!40,minimum size=0.1}]
+\begin{tikzpicture}
   \pgfmathtruncatemacro\xrange{4}
   \pgfmathtruncatemacro\yrange{2^\xrange-1}
   \foreach \x in {0,...,\xrange}
     \foreach \y in {0,...,\yrange} 
-      \node [darkstyle]  (\x\y) at (3*\x,1.5*\y) {};
+      \coordinate (\x\y) at (3*\x,1.5*\y) {};
  
   \pgfmathtruncatemacro\levelrange{\xrange-1}
   \foreach \level in {0,...,\levelrange}
