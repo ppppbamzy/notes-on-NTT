@@ -1,35 +1,49 @@
-\documentclass[border=10pt]{standalone}
+\documentclass[border=196pt]{standalone}
 \usepackage{tikz}
 
 \begin{document}
 \begin{tikzpicture}
 
-  \pgfmathtruncatemacro\xrange{3}
+  \pgfmathtruncatemacro\xrange{5}
   \pgfmathtruncatemacro\yrange{2^\xrange-1}
   \foreach \x in {0,...,\xrange}
     \foreach \y in {0,...,\yrange} 
-      \coordinate (\x\y) at (3*\x,1.5*\y) {};
+      \coordinate (\x\y) at (55*\x,7*\y) {};
  
   \pgfmathtruncatemacro\levelrange{\xrange-2}
   \foreach \level in {0,...,\levelrange}
   {
     \pgfmathtruncatemacro\nextlevel{\level+1}
-    \pgfmathtruncatemacro\step{2^(\levelrange-\level)}
-    \pgfmathtruncatemacro\startrange{2^\levelrange/\step-1}
+    \pgfmathtruncatemacro\step{2^(\xrange-1-\level)}
+    \pgfmathtruncatemacro\startrange{2^(\xrange-1)/\step-1}
     \foreach \startcount in {0,...,\startrange} 
       {
         \pgfmathtruncatemacro{\start}{\startcount*\step*2}
         \pgfmathtruncatemacro{\startplustwo}{\start+2}
         \pgfmathtruncatemacro{\lrange}{\start+\step-1}
-        \foreach \l in {\start,\startplustwo,...,\lrange}
+        \pgfmathtruncatemacro{\lcntstart}{\start/2}
+        \pgfmathtruncatemacro{\lcntend}{\lrange/2}
+        \foreach \lcnt in {\lcntstart,...,\lcntend}
         {
+          \pgfmathtruncatemacro{\l}{\lcnt*2}
           \pgfmathtruncatemacro{\h}{\l+\step}
           \pgfmathtruncatemacro{\cr}{255/(\startrange+1)/(\level+0.1)*(\startcount+\level)}
           \pgfmathtruncatemacro{\cg}{255/(\startrange+1)*\startcount}
           \pgfmathtruncatemacro{\cb}{255/(\startrange+1)*(\startrange-\startcount)}
           \definecolor{currentColor}{RGB}{\cr,\cg,\cb};
-          \draw [currentColor, line width = 7] (\level\l) -- (\nextlevel\h);
-          \draw [currentColor, line width = 7] (\nextlevel\l) -- (\level\h);
+          \draw [currentColor, line width = 13] (\level\l) -- (\nextlevel\h);
+          \draw [currentColor, line width = 13] (\nextlevel\l) -- (\level\h);
+        }
+        \foreach \lcnt in {\lcntstart,...,\lcntend}
+        {
+            \pgfmathtruncatemacro{\l}{\lcnt*2+1}
+            \pgfmathtruncatemacro{\h}{\l+\step}
+            \pgfmathtruncatemacro{\cr}{255/(\startrange+1)/(\level+0.1)*(\startcount+\level)}
+            \pgfmathtruncatemacro{\cg}{255/(\startrange+1)*\startcount}
+            \pgfmathtruncatemacro{\cb}{255/(\startrange+1)*(\startrange-\startcount)}
+            \definecolor{currentColor}{RGB}{\cr,\cg,\cb};
+            \draw [currentColor, line width = 13, loosely dashed] (\level\l) -- (\nextlevel\h);
+            \draw [currentColor, line width = 13, loosely dashed] (\nextlevel\l) -- (\level\h);
         }
       } 
   }
