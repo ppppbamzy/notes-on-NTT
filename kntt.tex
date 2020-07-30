@@ -4,11 +4,11 @@
 \begin{document}
 \begin{tikzpicture}
 
-  \pgfmathtruncatemacro\xrange{5}
+  \pgfmathtruncatemacro\xrange{4}
   \pgfmathtruncatemacro\yrange{2^\xrange-1}
   \foreach \x in {0,...,\xrange}
     \foreach \y in {0,...,\yrange} 
-      \coordinate (\x\y) at (55*\x,7*\y) {};
+      \coordinate (\x\y) at (24*\x,3*\y) {};
  
   \pgfmathtruncatemacro\levelrange{\xrange-2}
   \foreach \level in {0,...,\levelrange}
@@ -27,23 +27,23 @@
         {
           \pgfmathtruncatemacro{\l}{\lcnt*2}
           \pgfmathtruncatemacro{\h}{\l+\step}
-          \pgfmathtruncatemacro{\cr}{255/(\startrange+1)/(\level+0.1)*(\startcount+\level)}
-          \pgfmathtruncatemacro{\cg}{255/(\startrange+1)*\startcount}
-          \pgfmathtruncatemacro{\cb}{255/(\startrange+1)*(\startrange-\startcount)}
+          \pgfmathtruncatemacro{\cr}{{Mod((\startcount+\level+1)*666, 255)}}
+          \pgfmathtruncatemacro{\cg}{{Mod((\startcount+\level+1)*888, 255)}}
+          \pgfmathtruncatemacro{\cb}{{Mod((\startcount+\level+1)*999, 255)}}
           \definecolor{currentColor}{RGB}{\cr,\cg,\cb};
           \draw [currentColor, line width = 13] (\level\l) -- (\nextlevel\h);
           \draw [currentColor, line width = 13] (\nextlevel\l) -- (\level\h);
         }
         \foreach \lcnt in {\lcntstart,...,\lcntend}
         {
-            \pgfmathtruncatemacro{\l}{\lcnt*2+1}
-            \pgfmathtruncatemacro{\h}{\l+\step}
-            \pgfmathtruncatemacro{\cr}{255/(\startrange+1)/(\level+0.1)*(\startcount+\level)}
-            \pgfmathtruncatemacro{\cg}{255/(\startrange+1)*\startcount}
-            \pgfmathtruncatemacro{\cb}{255/(\startrange+1)*(\startrange-\startcount)}
-            \definecolor{currentColor}{RGB}{\cr,\cg,\cb};
-            \draw [currentColor, line width = 13, loosely dashed] (\level\l) -- (\nextlevel\h);
-            \draw [currentColor, line width = 13, loosely dashed] (\nextlevel\l) -- (\level\h);
+          \pgfmathtruncatemacro{\l}{\lcnt*2+1}
+          \pgfmathtruncatemacro{\h}{\l+\step}
+          \pgfmathtruncatemacro{\cr}{{Mod((\startcount+\level+1)*666, 255)}}
+          \pgfmathtruncatemacro{\cg}{{Mod((\startcount+\level+1)*888, 255)}}
+          \pgfmathtruncatemacro{\cb}{{Mod((\startcount+\level+1)*999, 255)}}
+          \definecolor{currentColor}{RGB}{\cr,\cg,\cb};
+          \draw [currentColor, line width = 13, dashed] (\level\l) -- (\nextlevel\h);
+          \draw [currentColor, line width = 13, dashed] (\nextlevel\l) -- (\level\h);
         }
       } 
   }
